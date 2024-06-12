@@ -3,16 +3,28 @@ package com.example.Calculator.services;
 import com.example.Calculator.datamodel.Solution;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class Solutionizer {
 
-    private static final double DEFAULT_ANSWER_THAT_NEEDS_TO_BE_REPLACED = 42.0;
-
     public Solutionizer() {}
+    private static final Sterilizer sterilizer = new Sterilizer();
 
-    public Solution createSolution(String equation) {
-        Solution solution = new Solution(equation);
-        solution.setAnswer(DEFAULT_ANSWER_THAT_NEEDS_TO_BE_REPLACED);
+    public static Solution createSolution(String equation) {
+        equation = equation.replace("(", " ( ")
+                .replace(")", " ) ")
+                .replace("+", " + ")
+                .replace("-", " - ")
+                .replace("/", " / ")
+                .replace("*", " * ")
+                .replace("^", " ^ ")
+                .replace("]"," ] ")
+                .replace("["," [ ")
+                .replace("}"," } ")
+                .replace("{"," { ");
+        Solution solution = new Solution(sterilizer.Sterilize(equation));
+        solution.setAnswer(NestToFinal.NestToFinal(Nest.Nester(SplitNonNested.SplitNonNested(equation))).getAtomFloat());
         return solution;
     }
 }

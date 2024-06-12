@@ -3,9 +3,9 @@ package com.example.Calculator.datamodel;
 public class Solution {
 
     private String equation;
-    private double answer;
+    private Float answer;
 
-    public Solution(String equation, double answer) {
+    public Solution(String equation, Float answer) {
         this.equation = equation;
         this.answer = answer;
     }
@@ -22,11 +22,11 @@ public class Solution {
         this.equation = equation;
     }
 
-    public double getAnswer() {
+    public Float getAnswer() {
         return answer;
     }
 
-    public void setAnswer(double answer) {
+    public void setAnswer(Float answer) {
         this.answer = answer;
     }
 
