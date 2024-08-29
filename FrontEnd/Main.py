@@ -57,7 +57,7 @@ def DrawDefaults():
     Draw_Button(screenw/12*5,screenh/9*5,screenw/13,screenh/10, button_colors, '2', appenditem='2')
     Draw_Button(screenw/12*6,screenh/9*5,screenw/13,screenh/10, button_colors, '3', appenditem='3')
     Draw_Button(screenw/12*7,screenh/9*5,screenw/12,screenh/10, button_colors, '+', appenditem=' + ')
-    Draw_Button(screenw/12*4,screenh/9*6,screenw/12 + screenw/13,screenh/10, button_colors, '0', appenditem=' - ')
+    Draw_Button(screenw/12*4,screenh/9*6,screenw/12 + screenw/13,screenh/10, button_colors, '0', appenditem='0')
     Draw_Button(screenw/12*6,screenh/9*6,screenw/13,screenh/10, button_colors, '.', appenditem='.')
     Draw_Button(screenw/12*7,screenh/9*6,screenw/12,screenh/10, button_colors, '=', appenditem='exec')
 DrawDefaults()
@@ -75,6 +75,7 @@ while running:
                     appenditem = Buttonregistrationvalues[Buttonregistrationkeys.index(button)]
                     if appenditem == 'AC':
                         Equation = ''
+                        Answer = ''
                     elif appenditem == 'Help':
                         pass
                     elif appenditem == 'exec':
