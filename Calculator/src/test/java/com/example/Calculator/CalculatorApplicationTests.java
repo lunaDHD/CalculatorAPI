@@ -14,7 +14,7 @@ class CalculatorApplicationTests {
 	}
 	public static Float testPemdas() {
 
-		return callSolution("1  -(2   + 3) ").getAnswer();
+		return callSolution("1  -(➖2   + 3) ").getAnswer();
 	}
 	public static Solution callSolution(String Equasion) {
 		return com.example.Calculator.services.Solutionizer.createSolution(Equasion);

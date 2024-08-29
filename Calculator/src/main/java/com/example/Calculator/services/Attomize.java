@@ -27,6 +27,7 @@ public class Attomize {
         }
         else {
             AtomizedObject obj = new AtomizedObject();
+            Item = Item.replace('➖', '-');
             obj.setAtomFloat(Float.parseFloat(Item));
             return obj;
         }
