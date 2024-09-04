@@ -4,6 +4,9 @@ import time
 import requests
 import json
 import base64
+from tkinter import *
+from tkinter import messagebox
+Tk().wm_withdraw()
 
 # pygame setup
 pygame.init()
@@ -18,9 +21,11 @@ global Buttonregistrationkeys
 Buttonregistrationkeys = []
 global Buttonregistrationvalues
 Buttonregistrationvalues = []
+helpscreenon = 0
 
 button_colors = [(250, 30, 220), (150,60,130)]
 BG_colors = [(0, 255, 255), (0,255,0)]
+Help_colors = [(255, 0, 0), (255, 255, 0)]
 def Draw_Button(x, y, w, h, Button_Collor, txt='1', txtsize = 30, appenditem=''):
     global Equation
     num_gradient_steps = int(h)  # Number of steps in the gradient
@@ -70,29 +75,30 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONUP:
             pos = pygame.mouse.get_pos()
-            for button in Buttonregistrationkeys:
-                if button.collidepoint(pos):
-                    appenditem = Buttonregistrationvalues[Buttonregistrationkeys.index(button)]
-                    if appenditem == 'AC':
-                        Equation = ''
-                        Answer = ''
-                    elif appenditem == 'Help':
-                        pass
-                    elif appenditem == 'exec':
-                        thingy = base64.b64encode(bytes(Equation, "utf8"))
-                        thingy = str(thingy).lstrip('b\'').rstrip('\'')
-                        r = requests.get(f'http://localhost:8080/calculate?string64={thingy}')
-                        r = r.json()
-                        print(r)
-                        Answer = str(r['answer'])
-                        Equation = ''
-                    else:
-                        Equation += appenditem
+            if helpscreenon == False:
+                for button in Buttonregistrationkeys:
+                    if button.collidepoint(pos):
+                        appenditem = Buttonregistrationvalues[Buttonregistrationkeys.index(button)]
+                        if appenditem == 'AC':
+                            Equation = ''
+                            Answer = ''
+                        elif appenditem == 'Help':
+                            messagebox.showinfo('Help Menu','Help Menu')
+                        elif appenditem == 'exec':
+                            thingy = base64.b64encode(bytes(Equation, "utf8"))
+                            thingy = str(thingy).lstrip('b\'').rstrip('\'')
+                            r = requests.get(f'http://localhost:8080/calculate?string64={thingy}')
+                            r = r.json()
+                            print(r)
+                            Answer = str(r['answer'])
+                            Equation = ''
+                        else:
+                            Equation += appenditem
         if event.type == pygame.WINDOWMAXIMIZED:
             DrawDefaults()
         if event.type == pygame.WINDOWENTER:
             DrawDefaults()
-
+    
 
     if Equation == '':
         bigtxt = Answer
@@ -100,7 +106,7 @@ while running:
         bigtxt = Equation.replace('➖', '-')
     
     Draw_Button(screenw/12*4,screenh/9,screenw/12*4,screenh/10, button_colors, bigtxt)
-
+    
     # flip() the display to put your work on screen
     pygame.display.flip()
 
